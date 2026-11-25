@@ -1,0 +1,47 @@
+# Testes automáticos da Aurora: rodam a cada pull request.
+# Usa o GitHub Models com o token automático do próprio GitHub (nenhuma chave escrita aqui).
+name: Testes da Aurora
+
+on:
+  pull_request:
+  workflow_dispatch:   # permite rodar manualmente pela aba Actions
+
+permissions:
+  contents: read
+  models: read         # libera o GITHUB_TOKEN para chamar o GitHub Models
+
+jobs:
+  avaliar:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://models.github.ai/inference
+      MODEL: openai/gpt-4.1-mini
+      API_KEY: ${{ secrets.GITHUB_TOKEN }}
+      LIMIAR: "0.9"    # taxa mínima de aprovação
+      PAUSA: "2"       # segundos entre chamadas (evita erro 429)
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Preparar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar bibliotecas
+        run: pip install -r requirements.txt
+
+      - name: Rodar o conjunto golden (Aula 5)
+        run: python aula5/avaliador.py
+
+      - name: Checagens de privacidade, segurança e formato (Aula 6)
+        if: always()
+        run: python aula6/checagens.py
+
+      - name: Guardar o relatório
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-aurora
+          path: aula5/relatorio.csv
+          if-no-files-found: warn

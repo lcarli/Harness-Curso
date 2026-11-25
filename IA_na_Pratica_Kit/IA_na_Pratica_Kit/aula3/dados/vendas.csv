@@ -1,0 +1,16 @@
+data,produto,quantidade,valor_unitario
+2026-10-26,pão de queijo,42,4.50
+2026-10-26,café,55,6.00
+2026-10-26,croissant,14,9.00
+2026-10-27,pão de queijo,38,4.50
+2026-10-27,cappuccino,22,11.00
+2026-10-27,café,61,6.00
+2026-10-28,bolo de cenoura,9,8.00
+2026-10-28,pão de queijo,47,4.50
+2026-10-28,café,58,6.00
+2026-10-29,croissant,17,9.00
+2026-10-29,cappuccino,25,11.00
+2026-10-30,pão de queijo,51,4.50
+2026-10-30,café,64,6.00
+2026-10-31,bolo de cenoura,12,8.00
+2026-10-31,cappuccino,28,11.00

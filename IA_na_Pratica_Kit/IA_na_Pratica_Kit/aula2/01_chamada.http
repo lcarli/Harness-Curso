@@ -1,0 +1,23 @@
+# Demo 1 — chamada "crua" para qualquer API compatível.
+# Requer a extensão REST Client no VS Code.
+# O REST Client lê o arquivo .env que está NA MESMA PASTA deste arquivo:
+# copie o .env da raiz do kit para aula2/ antes de rodar.
+# Clique em "Send Request" logo acima da linha POST.
+
+@baseUrl = {{$dotenv BASE_URL}}
+@apiKey = {{$dotenv API_KEY}}
+@model = {{$dotenv MODEL}}
+
+###
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{apiKey}}
+Content-Type: application/json
+
+{
+  "model": "{{model}}",
+  "temperature": 0.3,
+  "messages": [
+    {"role": "system", "content": "Você é a Aurora, assistente do Café Aurora. Responda em português, em até 3 frases."},
+    {"role": "user", "content": "Que horas sai o pão de queijo?"}
+  ]
+}
